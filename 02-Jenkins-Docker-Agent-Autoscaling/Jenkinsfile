@@ -1,0 +1,63 @@
+pipeline {
+    agent none
+
+    stages {
+        stage('Auto-Scaling Test') {
+            parallel {
+                stage('Build Job 1') {
+                    agent { label 'dynamic-agent' }
+                    environment {
+                        JOB_NAME = 'Job-1'
+                    }
+                    stages {
+                        stage('Run Task') {
+                            steps {
+                                sh '''
+                                  echo "========= $JOB_NAME ========="
+                                  echo "Running in container ID: $(hostname)"
+                                  sleep 20
+                                '''
+                            }
+                        }
+                    }
+                }
+
+                stage('Build Job 2') {
+                    agent { label 'dynamic-agent' }
+                    environment {
+                        JOB_NAME = 'Job-2'
+                    }
+                    stages {
+                        stage('Run Task') {
+                            steps {
+                                sh '''
+                                  echo "========= $JOB_NAME ========="
+                                  echo "Running in container ID: $(hostname)"
+                                  sleep 20
+                                '''
+                            }
+                        }
+                    }
+                }
+
+                stage('Build Job 3') {
+                    agent { label 'dynamic-agent' }
+                    environment {
+                        JOB_NAME = 'Job-3'
+                    }
+                    stages {
+                        stage('Run Task') {
+                            steps {
+                                sh '''
+                                  echo "========= $JOB_NAME ========="
+                                  echo "Running in container ID: $(hostname)"
+                                  sleep 20
+                                '''
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
