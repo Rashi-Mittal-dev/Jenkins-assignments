@@ -1,0 +1,46 @@
+version: '3'
+services:
+  jenkins-master:
+    image: jenkins/jenkins:lts
+    container_name: jenkins-master
+    user: root
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    networks:
+      - jenkins
+
+  jenkins-slave-1:
+    image: jenkins/inbound-agent
+    container_name: jenkins-slave-1
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080
+      - JENKINS_AGENT_NAME=slave-1
+      - JENKINS_SECRET=2a5a048fcf9b36864f5c7ee689a86082af538860206eb5e08002e114dfe60536
+    depends_on:
+      - jenkins-master
+    networks:
+      - jenkins
+
+  jenkins-slave-2:
+    image: jenkins/inbound-agent
+    container_name: jenkins-slave-2
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080
+      - JENKINS_AGENT_NAME=slave-2
+      - JENKINS_SECRET=56b986ecb9cd0d6851f55e83fddb7051dc239f60dc4b17326094fc6b6dc8ae76
+    depends_on:
+      - jenkins-master
+    networks:
+      - jenkins
+
+volumes:
+  jenkins_home:
+
+networks:
+  jenkins:
+

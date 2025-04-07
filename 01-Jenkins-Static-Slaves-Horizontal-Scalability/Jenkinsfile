@@ -1,0 +1,28 @@
+pipeline {
+    agent none
+    stages {
+        stage('Run in parallel on multiple slaves') {
+            parallel {
+                stage('Job 1') {
+                    agent { label 'docker-slave' }
+                    steps {
+                        sh 'echo "Running Job 1 on $(hostname)"; sleep 20'
+                    }
+                }
+                stage('Job 2') {
+                    agent { label 'docker-slave' }
+                    steps {
+                        sh 'echo "Running Job 2 on $(hostname)"; sleep 20'
+                    }
+                }
+                stage('Job 3') {
+                    agent { label 'docker-slave' }
+                    steps {
+                        sh 'echo "Running Job 3 on $(hostname)"; sleep 20'
+                    }
+                }
+            }
+        }
+    }
+}
+

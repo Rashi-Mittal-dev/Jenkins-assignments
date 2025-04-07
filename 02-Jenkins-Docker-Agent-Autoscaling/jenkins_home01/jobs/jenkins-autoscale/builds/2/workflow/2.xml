@@ -1,0 +1,12 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<Tag plugin="workflow-support@963.va_600813d04a_a_">
+  <node class="org.jenkinsci.plugins.workflow.graph.FlowStartNode" plugin="workflow-api@1366.vf1fb_e1a_f6b_22">
+    <parentIds/>
+    <id>2</id>
+  </node>
+  <actions>
+    <wf.a.TimingAction plugin="workflow-api@1366.vf1fb_e1a_f6b_22">
+      <startTime>1744010225531</startTime>
+    </wf.a.TimingAction>
+  </actions>
+</Tag>
